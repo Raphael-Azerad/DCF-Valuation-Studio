@@ -598,6 +598,11 @@ with tabs[7]:
         width="stretch",
     )
 
+    st.info(
+        "Educational model output only. DCF results depend heavily on assumptions and should not be treated as "
+        "investment advice, a recommendation, or a price target."
+    )
+
     workbook = export_valuation_workbook(
         overview=overview,
         historical=historical,

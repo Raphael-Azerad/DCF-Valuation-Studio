@@ -99,15 +99,22 @@ This is a valuation exercise, not investment advice. Small changes to WACC, term
 
 ## Screenshots
 
+### Overview
+
 ![DCF Valuation Studio overview](screenshots/dashboard-overview.png)
+
+### Sensitivity Analysis
+
+![Sensitivity heatmap](screenshots/sensitivity-analysis.png)
+
+### DCF Valuation
+
+![DCF valuation waterfall](screenshots/dcf-waterfall.png)
 
 Suggested additional captures:
 
-- Company overview and top valuation metrics
-- Historical financials tab
-- DCF valuation waterfall
-- Sensitivity heatmap
 - Scenario analysis range
+- Exported workbook preview
 
 ## Installation
 
@@ -124,6 +131,18 @@ streamlit run app.py
 ```
 
 Open the local Streamlit URL, enter a ticker, review the pulled financial data, adjust assumptions, and export the workbook from the Investment Summary tab.
+
+## Deployment
+
+The easiest hosted deployment path is Streamlit Community Cloud:
+
+1. Push this repository to GitHub.
+2. Go to [Streamlit Community Cloud](https://streamlit.io/cloud).
+3. Create a new app from `Raphael-Azerad/DCF-Valuation-Studio`.
+4. Set the main file path to `app.py`.
+5. Deploy with the default Python environment.
+
+No API keys are required for the base app because it uses public `yfinance` data. If Yahoo Finance rate limits a request, wait briefly and rerun the valuation.
 
 ## Testing
 

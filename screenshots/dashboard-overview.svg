@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">DCF Valuation Studio dashboard overview</title>
+  <desc id="desc">A polished dashboard preview showing valuation metrics, forecast charts, sensitivity analysis, and scenario outputs.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1020"/>
+      <stop offset="0.52" stop-color="#12222a"/>
+      <stop offset="1" stop-color="#14251d"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#172235"/>
+      <stop offset="1" stop-color="#101923"/>
+    </linearGradient>
+    <linearGradient id="green" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#4ade80"/>
+      <stop offset="1" stop-color="#14b8a6"/>
+    </linearGradient>
+    <linearGradient id="amber" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#fbbf24"/>
+      <stop offset="1" stop-color="#fb7185"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="20" flood-color="#000000" flood-opacity="0.28"/>
+    </filter>
+    <style>
+      text { font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+      .muted { fill: #91a4b7; font-size: 22px; }
+      .label { fill: #9fb0c2; font-size: 21px; font-weight: 600; }
+      .value { fill: #eef7f3; font-size: 40px; font-weight: 800; }
+      .small { fill: #a8bac8; font-size: 18px; }
+      .tiny { fill: #7e91a5; font-size: 15px; }
+      .panel-title { fill: #eef7f3; font-size: 26px; font-weight: 800; }
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <circle cx="1340" cy="140" r="230" fill="#1d3b32" opacity="0.28"/>
+  <circle cx="180" cy="760" r="250" fill="#214266" opacity="0.18"/>
+  <g transform="translate(72 54)">
+    <text x="0" y="44" fill="#f7fbff" font-size="50" font-weight="850">DCF Valuation Studio</text>
+    <text x="0" y="88" class="muted">CAPM, WACC, DCF valuation, sensitivity analysis, scenarios, and Excel export.</text>
+    <g transform="translate(1126 0)">
+      <rect width="330" height="58" rx="18" fill="#dff7ed" opacity="0.96"/>
+      <circle cx="32" cy="29" r="10" fill="#16a34a"/>
+      <text x="56" y="38" fill="#102018" font-size="22" font-weight="800">AAPL base case</text>
+    </g>
+  </g>
+  <g transform="translate(72 174)" filter="url(#shadow)">
+    <rect width="338" height="162" rx="20" fill="url(#panel)" stroke="#26384b"/>
+    <text x="28" y="48" class="label">Intrinsic Value</text>
+    <text x="28" y="100" class="value">$102.12</text>
+    <text x="28" y="134" class="small">per share estimate</text>
+    <path d="M234 122 L252 104 L272 112 L306 76" fill="none" stroke="#4ade80" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <g transform="translate(434 174)" filter="url(#shadow)">
+    <rect width="338" height="162" rx="20" fill="url(#panel)" stroke="#26384b"/>
+    <text x="28" y="48" class="label">WACC</text>
+    <text x="28" y="100" class="value">9.96%</text>
+    <text x="28" y="134" class="small">discount rate</text>
+    <rect x="220" y="42" width="74" height="74" rx="18" fill="#173b33"/>
+    <text x="244" y="91" fill="#66f2b4" font-size="34" font-weight="850">%</text>
+  </g>
+  <g transform="translate(796 174)" filter="url(#shadow)">
+    <rect width="338" height="162" rx="20" fill="url(#panel)" stroke="#26384b"/>
+    <text x="28" y="48" class="label">Market Price</text>
+    <text x="28" y="100" class="value">$309.05</text>
+    <text x="28" y="134" class="small">public AAPL data</text>
+    <rect x="218" y="56" width="86" height="46" rx="23" fill="#40231f"/>
+    <text x="242" y="87" fill="#fb7185" font-size="22" font-weight="850">-67%</text>
+  </g>
+  <g transform="translate(1158 174)" filter="url(#shadow)">
+    <rect width="370" height="162" rx="20" fill="url(#panel)" stroke="#26384b"/>
+    <text x="28" y="48" class="label">Excel Export</text>
+    <text x="28" y="100" class="value">9 Sheets</text>
+    <text x="28" y="134" class="small">formatted valuation workbook</text>
+  </g>
+  <g transform="translate(72 368)" filter="url(#shadow)">
+    <rect width="698" height="348" rx="22" fill="url(#panel)" stroke="#26384b"/>
+    <text x="30" y="50" class="panel-title">Forecast Free Cash Flow</text>
+    <text x="30" y="86" class="small">Five-year projection with terminal-value bridge</text>
+    <line x1="62" y1="282" x2="638" y2="282" stroke="#2c4153" stroke-width="2"/>
+    <line x1="62" y1="132" x2="62" y2="282" stroke="#2c4153" stroke-width="2"/>
+    <g fill="#1f3a4a">
+      <rect x="112" y="202" width="48" height="80" rx="8"/>
+      <rect x="200" y="187" width="48" height="95" rx="8"/>
+      <rect x="288" y="172" width="48" height="110" rx="8"/>
+      <rect x="376" y="151" width="48" height="131" rx="8"/>
+      <rect x="464" y="132" width="48" height="150" rx="8"/>
+    </g>
+    <path d="M118 224 C188 198, 230 196, 294 181 S422 145, 506 128 S585 107, 626 90" fill="none" stroke="url(#green)" stroke-width="8" stroke-linecap="round"/>
+    <g class="tiny">
+      <text x="112" y="310">FY26</text><text x="200" y="310">FY27</text><text x="288" y="310">FY28</text><text x="376" y="310">FY29</text><text x="464" y="310">FY30</text>
+    </g>
+  </g>
+  <g transform="translate(806 368)" filter="url(#shadow)">
+    <rect width="722" height="348" rx="22" fill="url(#panel)" stroke="#26384b"/>
+    <text x="30" y="50" class="panel-title">Sensitivity and Scenarios</text>
+    <text x="30" y="86" class="small">WACC, terminal growth, and probability-weighted valuation</text>
+    <g transform="translate(34 124)">
+      <rect width="284" height="176" rx="18" fill="#0d1722" stroke="#26384b"/>
+      <text x="22" y="40" class="label">Sensitivity Matrix</text>
+      <g transform="translate(24 62)">
+        <rect width="54" height="34" rx="8" fill="#163f35"/><rect x="64" width="54" height="34" rx="8" fill="#194335"/><rect x="128" width="54" height="34" rx="8" fill="#273f2f"/><rect x="192" width="54" height="34" rx="8" fill="#463126"/>
+        <rect y="44" width="54" height="34" rx="8" fill="#17382f"/><rect x="64" y="44" width="54" height="34" rx="8" fill="#1d4838"/><rect x="128" y="44" width="54" height="34" rx="8" fill="#34412b"/><rect x="192" y="44" width="54" height="34" rx="8" fill="#542b28"/>
+        <rect y="88" width="54" height="34" rx="8" fill="#25352d"/><rect x="64" y="88" width="54" height="34" rx="8" fill="#303e2e"/><rect x="128" y="88" width="54" height="34" rx="8" fill="#4e3426"/><rect x="192" y="88" width="54" height="34" rx="8" fill="#672528"/>
+      </g>
+    </g>
+    <g transform="translate(350 124)">
+      <rect width="338" height="176" rx="18" fill="#0d1722" stroke="#26384b"/>
+      <text x="22" y="40" class="label">Scenario Range</text>
+      <line x1="40" y1="116" x2="286" y2="116" stroke="#2c4153" stroke-width="14" stroke-linecap="round"/>
+      <line x1="84" y1="116" x2="236" y2="116" stroke="url(#amber)" stroke-width="14" stroke-linecap="round"/>
+      <circle cx="84" cy="116" r="14" fill="#fb7185"/>
+      <circle cx="164" cy="116" r="16" fill="#fbbf24"/>
+      <circle cx="236" cy="116" r="14" fill="#4ade80"/>
+      <text x="48" y="152" class="tiny">Bear</text>
+      <text x="142" y="152" class="tiny">Base</text>
+      <text x="218" y="152" class="tiny">Bull</text>
+    </g>
+  </g>
+  <g transform="translate(72 764)">
+    <rect width="1456" height="72" rx="20" fill="#0d1722" opacity="0.82" stroke="#26384b"/>
+    <text x="28" y="45" fill="#dbeafe" font-size="24" font-weight="800">Auditable assumptions, clean visuals, export-ready outputs, and CI-backed model logic.</text>
+  </g>
+</svg>

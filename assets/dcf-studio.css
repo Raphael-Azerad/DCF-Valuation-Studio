@@ -1,0 +1,179 @@
+:root {
+  --studio-bg: #0c1118;
+  --studio-panel: #111923;
+  --studio-panel-soft: #172230;
+  --studio-border: rgba(176, 190, 210, 0.18);
+  --studio-text: #eef3f8;
+  --studio-muted: #9eadbf;
+  --studio-teal: #54c6a5;
+  --studio-blue: #4ea1d3;
+  --studio-gold: #f2c14e;
+  --studio-red: #d16666;
+}
+
+.stApp {
+  background: radial-gradient(circle at top left, rgba(78, 161, 211, 0.12), transparent 28rem),
+    var(--studio-bg);
+  color: var(--studio-text);
+}
+
+[data-testid="stSidebar"] {
+  background: #0a0f15;
+  border-right: 1px solid var(--studio-border);
+}
+
+.sidebar-title {
+  color: var(--studio-text);
+  font-size: 1.15rem;
+  font-weight: 760;
+  letter-spacing: 0;
+  margin-bottom: 0.75rem;
+}
+
+.studio-header {
+  align-items: flex-end;
+  border-bottom: 1px solid var(--studio-border);
+  display: flex;
+  justify-content: space-between;
+  margin: -1.5rem 0 1.25rem;
+  padding: 1.25rem 0 1.1rem;
+}
+
+.studio-header span,
+.section-title span,
+.formula-panel span,
+.metric-card span {
+  color: var(--studio-muted);
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.studio-header h1 {
+  color: var(--studio-text);
+  font-size: 2.2rem;
+  letter-spacing: 0;
+  line-height: 1.05;
+  margin: 0.2rem 0 0;
+}
+
+.header-mark {
+  border: 1px solid var(--studio-border);
+  border-radius: 6px;
+  color: var(--studio-muted);
+  font-size: 0.86rem;
+  padding: 0.55rem 0.7rem;
+}
+
+.section-title {
+  margin: 0.35rem 0 0.85rem;
+}
+
+.section-title h2 {
+  color: var(--studio-text);
+  font-size: 1.35rem;
+  letter-spacing: 0;
+  margin: 0.15rem 0 0;
+}
+
+.metric-card,
+.company-panel,
+.formula-panel,
+.summary-panel {
+  background: linear-gradient(180deg, var(--studio-panel), rgba(17, 25, 35, 0.72));
+  border: 1px solid var(--studio-border);
+  border-radius: 8px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.16);
+}
+
+.metric-card {
+  min-height: 118px;
+  padding: 1rem;
+}
+
+.metric-card strong {
+  color: var(--studio-text);
+  display: block;
+  font-size: 1.55rem;
+  letter-spacing: 0;
+  line-height: 1.1;
+  margin-top: 0.55rem;
+}
+
+.metric-card small {
+  color: var(--studio-muted);
+  display: block;
+  font-size: 0.86rem;
+  margin-top: 0.55rem;
+}
+
+.metric-positive strong {
+  color: var(--studio-teal);
+}
+
+.metric-negative strong {
+  color: var(--studio-red);
+}
+
+.company-panel,
+.formula-panel,
+.summary-panel {
+  padding: 1.1rem;
+}
+
+.company-panel h3,
+.formula-panel h3 {
+  color: var(--studio-text);
+  font-size: 1.05rem;
+  letter-spacing: 0;
+  margin: 0.2rem 0 0.65rem;
+}
+
+.company-panel p,
+.formula-panel p,
+.summary-panel {
+  color: #c7d1dc;
+  font-size: 0.96rem;
+  line-height: 1.58;
+}
+
+.formula-panel strong {
+  color: var(--studio-teal);
+}
+
+[data-testid="stMetricValue"] {
+  color: var(--studio-text);
+}
+
+[data-testid="stDataFrame"] {
+  border: 1px solid var(--studio-border);
+  border-radius: 8px;
+}
+
+.stButton > button,
+.stDownloadButton > button {
+  border-radius: 6px;
+  font-weight: 720;
+}
+
+@media (max-width: 760px) {
+  .studio-header {
+    align-items: flex-start;
+    display: block;
+  }
+
+  .studio-header h1 {
+    font-size: 1.75rem;
+  }
+
+  .header-mark {
+    display: inline-block;
+    margin-top: 0.85rem;
+  }
+
+  .metric-card {
+    min-height: auto;
+  }
+}

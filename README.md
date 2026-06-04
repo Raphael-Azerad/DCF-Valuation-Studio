@@ -1,113 +1,137 @@
 # DCF Valuation Studio
 
-DCF Valuation Studio is a professional Streamlit dashboard for building discounted cash flow valuations from real public-company data. It combines ticker-level data ingestion, historical financial analysis, forecasting, CAPM, WACC, terminal value math, sensitivity analysis, scenario analysis, valuation bridges, and Excel export in a clean finance-dashboard interface.
+DCF Valuation Studio is a Streamlit app for building discounted cash flow valuations from public-company data. It pulls financial statements, forecasts free cash flow, estimates CAPM and WACC, runs sensitivity and scenario analysis, and converts enterprise value into an intrinsic value per share.
 
-The project is designed to show that a motivated student can build more than a formula sheet: this is a small but complete valuation platform with separated business logic, tests, CI, documentation, and a polished user experience.
+The project is built as a focused corporate-finance modeling tool. It is not a recommendation engine, stock screener, or trading system.
+
+## Live Demo
+
+Live demo: [dcf-valuation-studio.streamlit.app](https://dcf-valuation-studio.streamlit.app/)
+
+## Key Findings: AAPL Example
+
+AAPL is the default example because it is a cleaner fit for a standard enterprise-value DCF than a bank or insurer. Apple has an operating-company cash-flow profile, a large public float, and interpretable free cash flow.
+
+The figures below are model output using public AAPL data available in early June 2026 and the app's default assumptions. The local sandbox could not access Yahoo Finance directly, so the example uses cited public data and runs those inputs through the same project valuation logic.
+
+| Metric | Value |
+| --- | ---: |
+| Company | Apple Inc. |
+| Ticker | AAPL |
+| Market price | $309.05 |
+| Market capitalization | $4.54T |
+| FY2025 revenue | $416.16B |
+| FY2025 free cash flow | $98.77B |
+| Shares outstanding | 14.69B |
+| Beta | 1.06 |
+| Risk-free rate | 4.25% |
+| Market risk premium | 5.50% |
+| CAPM cost of equity | 10.08% |
+| WACC | 9.96% |
+| Terminal growth | 2.50% |
+| Forecast horizon | 5 years |
+| Intrinsic value estimate | $102.12 |
+| Market price | $309.05 |
+| Implied upside / downside | -67.0% |
+| Model-implied conclusion | Overvalued based on selected assumptions |
+
+This result is driven mainly by AAPL's high market capitalization relative to the app's normalized free-cash-flow forecast and discount-rate assumptions. The valuation is especially sensitive to WACC, terminal growth, and normalized FCF margin. It should be read as an educational valuation exercise, not as investment advice or a price target.
 
 ## Features
 
-- Pulls company profile, price, market capitalization, enterprise value, beta, shares outstanding, cash, debt, and annual financial statements with `yfinance`
-- Normalizes revenue, EBITDA, operating income, net income, and free cash flow across statement formats
-- Calculates CAPM cost of equity from risk-free rate, beta, and market risk premium
-- Calculates WACC using market-value equity, debt, cost of equity, after-tax cost of debt, and tax rate
-- Forecasts revenue, EBITDA, operating income, and free cash flow with editable growth and margin assumptions
-- Calculates present value of forecast cash flows, terminal value, enterprise value, equity value, and intrinsic value per share
-- Compares intrinsic value to current market price with neutral valuation language
-- Builds discount-rate / terminal-growth sensitivity matrices with a professional heatmap
-- Runs Bear, Base, and Bull scenarios with probability-weighted valuation
-- Creates valuation waterfall from enterprise value to equity value per share
-- Exports the full model to Excel
-- Includes pytest coverage and GitHub Actions CI
+- Public-company data ingestion through `yfinance`
+- Historical revenue, EBITDA, operating income, net income, and free-cash-flow normalization
+- Editable revenue growth, margin, capital-structure, CAPM, and terminal-growth assumptions
+- CAPM cost of equity calculation
+- WACC calculation using market-value equity, debt, tax rate, and after-tax cost of debt
+- Enterprise-value DCF with present value of forecast FCF and Gordon Growth terminal value
+- Enterprise value to equity value bridge
+- Intrinsic value per share and implied upside/downside
+- WACC / terminal-growth sensitivity matrix
+- Bear, Base, and Bull scenario analysis with probability-weighted value
+- Formatted multi-sheet Excel export
+- Validation tests and GitHub Actions CI
 
 ## Methodology
 
-The platform uses a standard enterprise-value DCF workflow:
+The app follows a standard enterprise-value DCF structure:
 
-1. Gather company data and annual historical financial statements.
-2. Forecast revenue and operating margins over a selected horizon.
-3. Estimate future free cash flows.
-4. Calculate cost of equity with CAPM.
-5. Calculate WACC from equity, debt, financing costs, and tax rate.
-6. Discount projected cash flows using WACC.
-7. Estimate terminal value with the Gordon Growth method.
-8. Convert enterprise value to equity value by subtracting debt and adding cash.
-9. Divide equity value by shares outstanding.
-10. Compare intrinsic value per share with market price.
+1. Pull company profile, market data, annual financial statements, and balance-sheet data.
+2. Normalize historical revenue, margins, and free cash flow.
+3. Forecast revenue and free cash flow over the selected horizon.
+4. Estimate cost of equity with CAPM.
+5. Estimate WACC from market-value equity, debt, tax rate, and cost of debt.
+6. Discount projected free cash flows at WACC.
+7. Estimate terminal value with Gordon Growth.
+8. Add present value of forecast cash flows and terminal value to estimate enterprise value.
+9. Subtract debt and add cash to estimate equity value.
+10. Divide equity value by shares outstanding to estimate intrinsic value per share.
 
-## Financial Concepts
-
-### DCF
-
-A discounted cash flow valuation estimates what a business is worth today based on the present value of future cash flows. The model separates explicit forecast cash flows from terminal value, which captures value after the forecast period.
-
-### CAPM
-
-The Capital Asset Pricing Model estimates cost of equity:
+## CAPM
 
 ```text
 Cost of Equity = Risk-Free Rate + Beta x Market Risk Premium
 ```
 
-### WACC
+CAPM is used as a practical estimate of the return equity investors require for bearing systematic risk.
 
-Weighted Average Cost of Capital blends equity and debt financing costs:
+## WACC
 
 ```text
 WACC = (E / V x Re) + (D / V x Rd x (1 - Tax Rate))
 ```
 
-### Sensitivity Analysis
+The model uses market capitalization for equity value and reported debt for debt value. This is a simplification, but it keeps the dashboard understandable and auditable.
 
-DCF outputs are highly sensitive to discount rate and terminal growth. The app builds a two-way matrix so users can see how intrinsic value changes across reasonable assumption ranges.
+## DCF
 
-### Scenario Analysis
+Projected free cash flows are discounted at WACC. Terminal value is calculated with Gordon Growth:
 
-The dashboard runs Bear, Base, and Bull cases around the active assumptions. Each scenario adjusts growth, margins, discount rate, and terminal growth, then shows the valuation range and probability-weighted output.
+```text
+Terminal Value = Final Forecast FCF x (1 + g) / (WACC - g)
+```
 
-## JPMorgan Chase Example
+Terminal growth must be below WACC. If the spread between WACC and terminal growth becomes too narrow, the app warns that terminal value is highly sensitive.
 
-Snapshot source data as of June 2, 2026:
+## Sensitivity Analysis
 
-- Market price: `$300.96`
-- Market capitalization: `$806.43B`
-- TTM revenue: `$173.56B`
-- Net income: `$57.51B`
-- Shares outstanding: `2.68B`
-- Beta: `1.02`
+The sensitivity matrix shows intrinsic value per share across WACC and terminal-growth assumptions. This makes the main valuation drivers visible instead of hiding the model behind a single point estimate.
 
-Because JPMorgan Chase is a bank, its reported debt, cash, and free-cash-flow lines do not behave like an industrial company’s capital structure. This example uses a normalized bank-style cash-flow proxy based on net income margin, while the app still supports the standard DCF controls for any ticker.
+## Scenario Analysis
 
-Example assumptions:
+The app runs Bear, Base, and Bull cases around the active assumptions. Each case adjusts growth, margins, WACC, and terminal growth, then calculates a probability-weighted intrinsic value estimate.
 
-- Forecast horizon: `5 years`
-- Revenue growth: fades from `3.0%` to `2.5%`
-- Normalized cash-flow margin: `33.1%`
-- Risk-free rate: `4.25%`
-- Market risk premium: `5.50%`
-- Beta: `1.02`
-- WACC: `9.86%`
-- Terminal growth: `2.50%`
+## Note on Financial Institutions
 
-Example result:
+Standard enterprise-value DCFs work best for operating companies with interpretable free cash flow and a clear separation between operating assets and financing.
 
-- Intrinsic value per share: `$302.27`
-- Market price: `$300.96`
-- Implied upside/downside: `+0.4%`
-- Model conclusion: `Fairly valued`
+Banks, insurers, and other financial institutions require extra care. Debt, cash, working capital, interest expense, and regulatory capital behave differently than they do for industrial companies. JPM is still supported in the app as a selectable ticker, but its output should be interpreted cautiously as an educational normalization exercise rather than a textbook industrial-company DCF.
 
-This is a valuation exercise, not investment advice. Small changes to WACC, terminal growth, or cash-flow margins can materially change the conclusion.
+Future improvements could add dividend discount or residual income valuation modes for financial institutions.
 
 ## Screenshots
 
-![DCF Valuation Studio overview](screenshots/dashboard-overview.png)
+### Dashboard Overview and LinkedIn Preview
 
-Suggested additional captures:
+![DCF Valuation Studio overview](screenshots/dashboard-overview.svg)
 
-- Company overview and top valuation metrics
-- Historical financials tab
-- DCF valuation waterfall
-- Sensitivity heatmap
-- Scenario analysis range
+The same 16:9 composition is sized for sharing outside GitHub, including LinkedIn posts.
+
+## Excel Export
+
+The export creates a formatted workbook with the following sheets:
+
+- Overview
+- Historical Financials
+- Forecast
+- CAPM
+- WACC
+- DCF
+- Sensitivity
+- Scenarios
+- Summary
+
+Headers are styled, panes are frozen, widths are adjusted, and numeric formats are applied where practical.
 
 ## Installation
 
@@ -123,7 +147,7 @@ pip install -e ".[dev]"
 streamlit run app.py
 ```
 
-Open the local Streamlit URL, enter a ticker, review the pulled financial data, adjust assumptions, and export the workbook from the Investment Summary tab.
+Open the local Streamlit URL, choose a ticker, review the imported data, adjust assumptions, and export the workbook from the Investment Summary tab.
 
 ## Testing
 
@@ -132,6 +156,14 @@ pytest
 ruff check .
 black --check .
 ```
+
+The test suite covers CAPM, WACC, DCF math, terminal-value validation, equity-value bridge, sensitivity analysis, scenario analysis, probability-weighted value, financial-institution detection, forecasting assumptions, and Excel workbook structure.
+
+## Deployment
+
+The app is deployed on Streamlit Community Cloud at [dcf-valuation-studio.streamlit.app](https://dcf-valuation-studio.streamlit.app/).
+
+No API keys are required for the base app because it uses public `yfinance` data. If Yahoo Finance rate limits or blocks a request, wait briefly and rerun the valuation.
 
 ## Repository Structure
 
@@ -150,25 +182,28 @@ black --check .
 
 ## Limitations
 
-- `yfinance` data availability varies by ticker and may change over time.
-- Free cash flow for banks, insurers, and other financial institutions can be difficult to interpret in a standard enterprise-value DCF.
-- The model does not provide investment advice or price targets.
-- Outputs depend heavily on user assumptions.
-- Currency and cross-listing issues may require manual review for non-U.S. tickers.
+- `yfinance` data can be delayed, restated, rate-limited, or unavailable for some tickers.
+- Free cash flow for banks, insurers, and other financial institutions is not directly comparable to industrial-company FCF.
+- The app does not forecast share count, stock-based compensation, leases, acquisitions, or segment-level revenue.
+- Cost of debt, tax rate, and capital structure are simplified user inputs.
+- The model uses Gordon Growth terminal value, which can dominate the valuation.
+- Outputs depend heavily on selected assumptions.
+- The model does not provide investment advice, recommendations, or price targets.
 
 ## Future Improvements
 
-- Add dedicated financial-institution valuation modes such as excess-return or dividend discount models
-- Add peer valuation multiples
-- Add Monte Carlo simulation
-- Add saved scenario presets
-- Add SEC filing ingestion
-- Add screenshot generation workflow for README assets
+- Add dividend discount and residual income modes for financial institutions
+- Add optional share-count forecasting
+- Add peer trading multiples as a cross-check
+- Add richer screenshot generation workflow
+- Add downloadable sample workbook as a release asset
 
 ## References
 
-- [JPMorgan Chase price and key stats, StockAnalysis](https://stockanalysis.com/stocks/jpm/)
-- [JPMorgan Chase price and market stats, MarketBeat](https://www.marketbeat.com/stocks/NYSE/JPM/)
+- [Apple statistics and valuation, StockAnalysis](https://stockanalysis.com/stocks/aapl/statistics/)
+- [Apple financial statements, StockAnalysis](https://stockanalysis.com/stocks/aapl/financials/)
+- [Apple market capitalization, StockAnalysis](https://stockanalysis.com/stocks/aapl/market-cap/)
+- [Apple shares outstanding, CompaniesMarketCap](https://companiesmarketcap.com/gbp/apple/shares-outstanding/)
 - [yfinance documentation](https://github.com/ranaroussi/yfinance)
 - [Streamlit documentation](https://docs.streamlit.io/)
 - [Plotly Python documentation](https://plotly.com/python/)
